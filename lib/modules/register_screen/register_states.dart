@@ -1,0 +1,16 @@
+import '../../models/models.dart';
+
+abstract class RegisterStates{}
+class RegisterInitialState extends RegisterStates{}
+class RegisterChangePageState extends RegisterStates{}
+class RegisterSuccessState extends RegisterStates{
+  ShopLoginModel loginModel;
+  RegisterSuccessState({required this.loginModel});
+}
+class RegisterErrorState extends RegisterStates{
+  String error;
+  RegisterErrorState({required this.error});
+}
+class RegisterLoadingState extends RegisterStates{}
+class RegisterChangeState extends RegisterStates{}
+class UploadedUserImageState extends RegisterStates{}
