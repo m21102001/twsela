@@ -10,8 +10,8 @@ import '../../modules/home_pages/promotions_screen.dart';
 import '../../modules/home_pages/map_screen.dart';
 import '../../modules/home_pages/settings_screen.dart';
 
-class AppCubit extends Cubit<ShopStates>{
-  AppCubit(): super (ShopInitialState());
+class AppCubit extends Cubit<AppStates>{
+  AppCubit(): super (AppInitialState());
 
   static AppCubit get(context)=> BlocProvider.of(context);
 
@@ -30,6 +30,11 @@ class AppCubit extends Cubit<ShopStates>{
   }
 
 
+  int profileIndex=0;
+  void changeProfileIndex(int index){
+    profileIndex= index;
+    emit(AppChangeProfileIndexState());
+  }
 
   /*
    HomeModel? model;

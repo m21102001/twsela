@@ -13,10 +13,12 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget{
   bool withDrawer;
   bool withLeadingButton;
   Color appBarColor;
+  Widget? actionWidget;
 
    DefaultAppBar({Key? key,
      required this.title,
      this.withDrawer=false,
+     this.actionWidget=null,
      this.withLeadingButton=false,
      required this.leadingFunction,
      this.appBarColor=secondaryColor,
@@ -30,7 +32,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget{
       elevation: 0.0,
       backgroundColor: appBarColor,
       centerTitle: true,
-      leading: null,
+      leading: withLeadingButton? IconButton(onPressed: (){leadingFunction();}, icon: Icon(Icons.arrow_back_ios_rounded)) : null,
       /*
       withDrawer==true ? IconButton(
           icon: SvgPicture.asset('$imagePath/icons/drawer_icon.svg'),
@@ -48,11 +50,6 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget{
         ),
       ),
       actions: [
-        // if(withLeadingButton==true)
-        //   IconButton(
-        //     padding: EdgeInsets.all(10.w),
-        //       onPressed: (){leadingFunction();},
-        //       icon: SvgPicture.asset('$imagePath/icons/arrow_left.svg')),
       ],
     );
   }
