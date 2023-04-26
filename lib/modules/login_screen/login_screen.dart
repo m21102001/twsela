@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:twsela/components/core_components.dart';
 import 'package:twsela/components/custom_button.dart';
 import '../../layout/home_layout.dart';
+import '../driver_modules/driver_home_layout.dart';
 import '../register_screen/passenger_register_screen.dart';
 import 'login_cubit.dart';
 import 'login_states.dart';
@@ -97,7 +98,7 @@ class LoginScreen extends  StatelessWidget {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               onPressed:(){
-                                navigateWithoutBack(context, HomeLayout());
+                                navigateWithoutBack(context,HomeLayout());
                               },
                               child: const Text(
                                 'Login',

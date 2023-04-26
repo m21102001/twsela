@@ -61,7 +61,7 @@ class CustomButton extends StatelessWidget {
             style:GoogleFonts.roboto(
               color: textColor,
               fontSize: fontSize.sp,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ],

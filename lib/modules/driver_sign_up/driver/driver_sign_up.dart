@@ -7,6 +7,7 @@ import 'package:twsela/components/custom_button.dart';
 import 'package:twsela/components/default_app_bar.dart';
 import 'package:twsela/layout/home_layout.dart';
 import 'package:twsela/models/models.dart';
+import 'package:twsela/modules/driver_modules/driver_home_layout.dart';
 import 'package:twsela/modules/login_screen/login_screen.dart';
 import 'package:twsela/shared/network/local/cache_helper.dart';
 
@@ -82,7 +83,7 @@ class DriverSignUpScreen extends  StatelessWidget {
                         height: 40.h,
                         function: (){
                           if(isLast){
-                            navigateWithoutBack(context, LoginScreen());
+                            navigateWithoutBack(context, DriverHomeLayout());
                           }else{
                             pageontroller.nextPage(duration: const Duration(milliseconds: 200), curve: Curves.bounceInOut);
                           }

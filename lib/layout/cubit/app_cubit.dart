@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:twsela/layout/cubit/shop_states.dart';
+import 'package:twsela/modules/driver_modules/driver_trips_screen.dart';
 import 'package:twsela/modules/home_pages/profile_screen.dart';
 import '../../components/constants.dart';
 import '../../modules/home_pages/my_trips_screen.dart';
@@ -23,10 +24,23 @@ class AppCubit extends Cubit<AppStates>{
     ProfileScreen(),
   ];
 
+  List<Widget> driverBodyScreens=[
+    MapScreen(),
+    DriverTripsScreen(),
+    ProfileScreen(),
+  ];
+
+  int driverCurrentIndex=0;
+  void changeDriverBottomNavBarItem(int index){
+    driverCurrentIndex = index;
+    emit(ChangeDriverBottomNavBarItemState());
+  }
+
+
   int currentIndex=0;
   void changeBottomNavBarItem(int index){
     currentIndex = index;
-    emit(ShopChangeBottomNavBarItemState());
+    emit(ChangeBottomNavBarItemState());
   }
 
 

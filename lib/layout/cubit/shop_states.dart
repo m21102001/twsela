@@ -3,7 +3,8 @@
 
 abstract class AppStates {}
 class AppInitialState extends AppStates{}
-class ShopChangeBottomNavBarItemState extends AppStates{}
+class ChangeDriverBottomNavBarItemState extends AppStates{}
+class ChangeBottomNavBarItemState extends AppStates{}
 class AppChangeProfileIndexState extends AppStates{}
 class ShopSuccessState extends AppStates{}
 class ShopLoadingState extends AppStates{}

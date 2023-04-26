@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:twsela/components/constants.dart';
+import 'package:twsela/components/core_components.dart';
+import 'package:twsela/components/custom_button.dart';
 import 'package:twsela/components/default_app_bar.dart';
 import '../../components/user_info_item.dart';
+import '../driver_modules/new_trip.dart';
 
 class MyTripsScreen extends StatelessWidget {
   const MyTripsScreen({Key? key}) : super(key: key);
@@ -20,7 +24,7 @@ class MyTripsScreen extends StatelessWidget {
       ),
 
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
         child: ListView.separated(
           itemBuilder: (context, index)=>MyTripsCart(index: index),
           separatorBuilder: (context, index)=>SizedBox(height: 20.h,),
@@ -61,28 +65,42 @@ class MyTripsCart extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Container(
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                color: getColor(),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    getTitle(),
-                    style: GoogleFonts.roboto(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 9.sp,
-                        color: Colors.white
-                    ),
+            padding: const EdgeInsets.only(top: 10.0, left: 10, right: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: getColor(),
+                    borderRadius: BorderRadius.circular(15),
                   ),
-                  const SizedBox(width: 4,),
-                  Icon(Icons.timelapse, color: Colors.white, size: 12.sp,),
-                ],
-              ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        getTitle(),
+                        style: GoogleFonts.roboto(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 9.sp,
+                            color: Colors.white
+                        ),
+                      ),
+                      const SizedBox(width: 4,),
+                      Icon(Icons.timelapse, color: Colors.white, size: 12.sp,),
+                    ],
+                  ),
+                ),
+                CustomButton(
+                    text: 'Apply',
+                    height:23.h,
+                    width: 80.w,
+                    radius: 6,
+                    fontSize: 14,
+                    color: secondaryColor,
+                    function: (){}
+                ),
+              ],
             ),
           ),
 
