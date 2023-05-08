@@ -14,3 +14,14 @@ class RegisterErrorState extends RegisterStates{
 class RegisterLoadingState extends RegisterStates{}
 class RegisterChangeState extends RegisterStates{}
 class UploadedUserImageState extends RegisterStates{}
+
+
+
+class CreateUserSuccessState extends RegisterStates{}
+class CreateUserErrorState extends RegisterStates{
+  String error;
+  CreateUserErrorState(this.error);
+}
+
+
+

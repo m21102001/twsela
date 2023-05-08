@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,9 +9,9 @@ import 'package:twsela/shared/network/remote/dio_helper.dart';
 import 'components/constants.dart';
 import 'layout/cubit/app_cubit.dart';
 
-void main() async{
-
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   DioHelper.init();
   await CacheHelper.init();
   token = CacheHelper.getData(key: 'token');

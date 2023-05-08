@@ -9,6 +9,8 @@ import 'package:twsela/components/custom_button.dart';
 import 'package:twsela/modules/register_screen/register_cubit.dart';
 import 'package:twsela/modules/register_screen/register_states.dart';
 
+import '../../components/core_components.dart';
+
 
 
 class PassengerRegisterScreen extends  StatelessWidget {
@@ -25,8 +27,15 @@ class PassengerRegisterScreen extends  StatelessWidget {
     return BlocProvider(
         create: (context)=> RegisterCubit(),
       child: BlocConsumer<RegisterCubit,RegisterStates>(
-        listener: (context,state){},
+        listener: (context,state){
+          if(state is RegisterErrorState){
+            showToast(text: state.error, state: ToastStates.ERROR);
+          }else if(state is CreateUserSuccessState){
+            showToast(text: 'Signed up Successfully', state: ToastStates.SUCCESS);
+          }
+        },
         builder: (context,state){
+          RegisterCubit cubit= RegisterCubit.get(context);
           return Scaffold(
             body: Center(
               child: SingleChildScrollView(
@@ -149,15 +158,16 @@ class PassengerRegisterScreen extends  StatelessWidget {
                           validator: (value){
                             if(value!.isEmpty){
                               return 'Enter password';
-                            }
-                            else {
+                            }else if(passwordController.text.trim().length<6){
+                              return 'Password must be at least 6 characters';
+                            } else {
                               return null;
                             }
                           },
                         ),
                         const SizedBox(height: 25.0,),
                         TextFormField(
-                          controller: passwordController,
+                          controller: confirmPasswordController,
                           keyboardType: TextInputType.visiblePassword,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
@@ -178,8 +188,11 @@ class PassengerRegisterScreen extends  StatelessWidget {
                           validator: (value){
                             if(value!.isEmpty){
                               return 'Enter password';
-                            }
-                            else {
+                            }else if(confirmPasswordController.text.trim().length<6){
+                              return 'Password must be at least 6 characters';
+                            }else if(passwordController.text.trim()!=confirmPasswordController.text.trim()){
+                              return 'Not the same password';
+                            } else {
                               return null;
                             }
                           },
@@ -198,10 +211,18 @@ class PassengerRegisterScreen extends  StatelessWidget {
                               height: 40.h,
                               textColor: Colors.white,
                               function: (){
-                                Navigator.pop(context);
+                                if(formKey.currentState!.validate()){
+                                  cubit.userRegister(
+                                      email: emailController.text.trim(),
+                                      password: passwordController.text.trim(),
+                                      name: nameController.text.trim(),
+                                      phone: phoneController.text.trim(),
+                                      address: addressController.text.trim(),
+                                      context: context);
+                                }
                               },
                             ),
-                            fallback:(context)=> Center(child: CircularProgressIndicator(color: Colors.white,)) ,
+                            fallback:(context)=>const Center(child: CircularProgressIndicator(color: secondaryColor,)) ,
                           ),
                         ),
                         const SizedBox(height: 15.0,),

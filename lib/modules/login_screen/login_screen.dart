@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:twsela/components/constants.dart';
 import 'package:twsela/components/core_components.dart';
 import 'package:twsela/components/custom_button.dart';
 import '../../layout/home_layout.dart';
@@ -21,9 +22,15 @@ class LoginScreen extends  StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>ShopAppLoginCubit(),
-      child: BlocConsumer<ShopAppLoginCubit,ShopAppLoginStates>(
-        listener: (context, state){},
+      create: (BuildContext context) =>LoginCubit(),
+      child: BlocConsumer<LoginCubit,LoginStates>(
+        listener: (context, state){
+          if(state is LoginErrorState){
+            showToast(text: state.error, state: ToastStates.ERROR);
+          }else if(state is LoginSuccessState){
+            showToast(text: 'Login Successfully', state: ToastStates.SUCCESS);
+          }
+        },
         builder: (context, state){
           return Scaffold(
             body: Center(
@@ -69,14 +76,14 @@ class LoginScreen extends  StatelessWidget {
                             ),
                             suffixIcon: IconButton(
                               onPressed: (){
-                                ShopAppLoginCubit.get(context).changePassword();
+                                LoginCubit.get(context).changePassword();
                               },
                               icon: Icon(
-                                ShopAppLoginCubit.get(context).isShown ? Icons.remove_red_eye_outlined : Icons.visibility_off_outlined,
+                                LoginCubit.get(context).isShown ? Icons.remove_red_eye_outlined : Icons.visibility_off_outlined,
                               ),
                             ),
                           ),
-                          obscureText:ShopAppLoginCubit.get(context).isShown ? false : true,
+                          obscureText:LoginCubit.get(context).isShown ? false : true,
                           validator: (value){
                             if(value!.isEmpty){
                               return 'Enter password';
@@ -91,14 +98,17 @@ class LoginScreen extends  StatelessWidget {
                           width: double.infinity,
                           height: 45.h,
                           child: ConditionalBuilder(
-                            condition: state is! ShopAppLoginLoadingState,
+                            condition: state is! LoginLoadingState,
                             builder:(context)=> MaterialButton(
                               color: Color(0xff0e335f),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               onPressed:(){
-                                navigateWithoutBack(context,HomeLayout());
+                                LoginCubit.get(context).login(
+                                    email: emailController.text.trim(),
+                                    password: passwordController.text.trim(),
+                                    context: context);
                               },
                               child: const Text(
                                 'Login',
@@ -109,7 +119,7 @@ class LoginScreen extends  StatelessWidget {
                                 ),
                               ),
                             ),
-                            fallback:(context)=> Center(child: CircularProgressIndicator(color: Colors.white,)) ,
+                            fallback:(context)=> const Center(child: CircularProgressIndicator(color: secondaryColor,)) ,
                           ),
 
 
